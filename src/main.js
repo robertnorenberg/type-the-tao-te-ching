@@ -109,6 +109,13 @@ const actions = {
   toggleBrightness: () => {
     toggleBodyDarkness()
     toggleSpanBrightness()
+
+    const body = document.getElementsByTagName('body')[0]
+    if (body.classList.contains('dark')) {
+      window.localStorage.setItem('is_dark', 'true')
+    } else {
+      window.localStorage.removeItem('is_dark')
+    }
   }
 }
 
@@ -258,3 +265,7 @@ const view = (state, actions) =>
   ])
 
 window.main = app(initialState(), actions, view, document.body)
+
+if (window.localStorage.getItem('is_dark')) {
+  document.body.classList.add("dark");
+}
